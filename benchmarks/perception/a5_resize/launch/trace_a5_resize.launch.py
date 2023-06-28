@@ -5,7 +5,7 @@
 #    @@@@@ @@  @@    @@@@
 #    @@@@@ @@  @@    @@@@ Copyright (c) 2023, Acceleration Robotics®
 #    @@@@@ @@  @@    @@@@ Author: Martiño Crespo <martinho@accelerationrobotics.com>
-#    @@@@@ @@  @@    @@@@ Author: Víctor Mayoral Vilches <victor@accelerationrobotics.com>
+#    @@@@@ @@  @@    @@@@
 #    @@@@@@@@@&@@@@@@@@@@
 #    @@@@@@@@@@@@@@@@@@@@
 #
@@ -61,7 +61,6 @@ def generate_launch_description():
         composable_node_descriptions=[
             ComposableNode(
                 package="a1_perception_2nodes",
-                namespace="robotperf",
                 plugin="robotperf::perception::ImageInputComponent",
                 name="image_input_component",
                 remappings=[
@@ -71,14 +70,14 @@ def generate_launch_description():
                 extra_arguments=[{'use_intra_process_comms': True}],
             ),
             ComposableNode(
-                namespace="robotperf/benchmark",
-                package="image_proc",
-                plugin="image_proc::ResizeNode",
+                namespace="benchmark",
+                package="isaac_ros_image_proc",
+                plugin="nvidia::isaac_ros::image_proc::ResizeNode",
                 name="resize_node",
                 remappings=[
                     ("camera_info", "/camera/camera_info"),
-                    ("image", "/robotperf/input"),
-                    ("resize", "/robotperf/benchmark/resize"),
+                    ("image", "/input"),
+                    ("resize", "resize"),
                 ],
                 parameters=[
                     {
@@ -86,16 +85,15 @@ def generate_launch_description():
                         "scale_width": 2.0,
                     }
                 ],
-                extra_arguments=[{'use_intra_process_comms': True}],
+                #extra_arguments=[{'use_intra_process_comms': True}],
             ),
             ComposableNode(
                 package="a1_perception_2nodes",
                 plugin="robotperf::perception::ImageOutputComponent",
-                namespace="robotperf",
                 name="image_output_component",
                 remappings=[
-                    ("image", "/robotperf/benchmark/resize"),
-                    ("camera_info", "/camera/camera_info"),
+                    ("image", "/benchmark/resize/image"),
+                    ("camera_info", "/benchmark/resize/camera_info"),
                 ],
                 extra_arguments=[{'use_intra_process_comms': True}],
             ),
