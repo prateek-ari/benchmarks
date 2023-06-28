@@ -145,4 +145,4 @@ ba.add_target(
 #     }
 # )
 
-ba.analyze_latency("/root/.ros/tracing/a5_resize")
+ba.analyze_latency()
