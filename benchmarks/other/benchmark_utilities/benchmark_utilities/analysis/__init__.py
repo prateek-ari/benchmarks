@@ -2671,21 +2671,28 @@ class BenchmarkAnalyzer:
 
         path_repo = "/tmp/benchmarks"
         branch_name = ""
-
+        print("In add result 1")
         # # fetch repo
         # run('if [ -d "/tmp/benchmarks" ]; then cd ' + path_repo +  ' && git pull; \
         #         else cd /tmp && git clone https://github.com/robotperf/benchmarks; fi',
         #     shell=True)
 
         if os.path.exists(path_repo):
+            print("In add result 2")
             benchmark_meta_paths = search_benchmarks(searchpath="/tmp/benchmarks")
+            #print(benchmark_meta_paths)
+            print(self.benchmark_name)
+            print(benchmark_meta_paths)
             for meta in benchmark_meta_paths:
-                # print(meta)  # debug
+                print(meta)
+                print("In add result 3")
+                #print(meta)  # debug
                 benchmark = Benchmark(meta)
+                print("In add result 4")
                 if benchmark.name == self.benchmark_name:
                     benchmark.results.append(result)
                     branch_name = benchmark.id + "-" + str(len(benchmark.results))
                     with open(meta, 'w') as file:
                         file.write(str(benchmark))
                     print(benchmark)
-                    break        
+                    break

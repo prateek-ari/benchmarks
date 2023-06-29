@@ -141,6 +141,8 @@ class Benchmark:
     def __init__(self, yaml_file):
         with open(yaml_file, "r") as f:
             yaml_data = yaml.safe_load(f)
+        if yaml_data is None:
+            raise ValueError(f"Could not load data from {yaml_file}. Please check if file is empty or invalid.")
 
         self.id = yaml_data["id"]
         self.name = yaml_data["name"]
@@ -148,24 +150,25 @@ class Benchmark:
         self.short = yaml_data["short"]
         self.graph = yaml_data["graph"]
         self.reproduction = yaml_data["reproduction"]
-        self.results = []
+        self.results = []   # Ensure this line exists
         self.path = yaml_file.replace("/benchmark.yaml", "")
 
         for result in yaml_data["results"]:
-            metric = result["result"]["metric"]
-            metric_unit = result["result"]["metric_unit"]
-            result_type = result["result"]["type"]
-            hardware = result["result"]["hardware"]
-            category = result["result"]["category"]
-            timestampt = result["result"]["timestampt"]
-            value = result["result"]["value"]
-            note = result["result"]["note"]
-            datasource = result["result"]["datasource"]
+            result_data = result["result"]
+            metric = result_data.get("metric", "default_metric")
+            metric_unit = result_data.get("metric_unit", "default_metric_unit")
+            result_type = result_data.get("type", "default_type")
+            hardware = result_data.get("hardware", "default_hardware")
+            category = result_data.get("category", "default_category")
+            timestampt = result_data.get("timestampt", "default_timestampt")
+            value = result_data.get("value", "default_value")
+            note = result_data.get("note", "default_note")
+            datasource = result_data.get("datasource", "default_datasource")
 
             self.results.append({
                 "metric": metric,
                 "metric_unit": metric_unit,
-                "type": result_type, # "type" is a reserved keyword in Python, so we use "result_type
+                "type": result_type,  # "type" is a reserved keyword in Python, so we use "result_type"
                 "hardware": hardware,
                 "category": category,
                 "timestampt": timestampt,
@@ -173,6 +176,7 @@ class Benchmark:
                 "note": note,
                 "datasource": datasource
             })
+
 
     def __str__(self):
         yaml_data = {
