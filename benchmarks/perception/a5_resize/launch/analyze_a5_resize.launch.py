@@ -169,7 +169,7 @@ def generate_launch_description():
     # Define the ExecuteProcess action to run the Python script
     analyzer = ExecuteProcess(
         cmd=[
-            'python3', "benchmarks/benchmarks/perception/a5_resize/launch/analyze_a5_resize.launch.py",
+            'python3', "/tmp/benchmark_ws/src/benchmarks/benchmarks/perception/a5_resize/launch/analyze_a5_resize.launch.py",
             '--hardware_device_type', LaunchConfiguration('hardware_device_type'),
             '--trace_path', LaunchConfiguration('trace_path'),
             '--metrics', LaunchConfiguration('metrics')],
