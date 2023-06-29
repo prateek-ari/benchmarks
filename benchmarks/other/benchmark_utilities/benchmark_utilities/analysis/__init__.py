@@ -2503,7 +2503,9 @@ class BenchmarkAnalyzer:
         fig.write_image("/tmp/analysis/plot_barchart.png", width=1400, height=1000)
 
         result = self.results(self.image_pipeline_msg_sets_barchart)
+        print("Adding results function starting")
         self.add_result(result)
+        print("Adding results function finished")
 
     def upload_results():
         # commit and push in a new branch called "branch_name" and drop instructions to create a PR
