@@ -2503,9 +2503,7 @@ class BenchmarkAnalyzer:
         fig.write_image("/tmp/analysis/plot_barchart.png", width=1400, height=1000)
 
         result = self.results(self.image_pipeline_msg_sets_barchart)
-        print("Adding results function starting")
         self.add_result(result)
-        print("Adding results function finished")
 
     def upload_results():
         # commit and push in a new branch called "branch_name" and drop instructions to create a PR
@@ -2642,7 +2640,8 @@ class BenchmarkAnalyzer:
                 "timestampt": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())),
                 "value": float(total_watts),
                 "datasource": os.environ.get('ROSBAG'),
-                "type": os.environ.get('TYPE')
+                "type": os.environ.get('TYPE'),
+                "note": ''
         }
 
         self.add_result(result)
@@ -2671,28 +2670,21 @@ class BenchmarkAnalyzer:
 
         path_repo = "/tmp/benchmarks"
         branch_name = ""
-        print("In add result 1")
+
         # # fetch repo
         # run('if [ -d "/tmp/benchmarks" ]; then cd ' + path_repo +  ' && git pull; \
         #         else cd /tmp && git clone https://github.com/robotperf/benchmarks; fi',
         #     shell=True)
 
         if os.path.exists(path_repo):
-            print("In add result 2")
             benchmark_meta_paths = search_benchmarks(searchpath="/tmp/benchmarks")
-            #print(benchmark_meta_paths)
-            print(self.benchmark_name)
-            print(benchmark_meta_paths)
             for meta in benchmark_meta_paths:
-                print(meta)
-                print("In add result 3")
-                #print(meta)  # debug
+                # print(meta)  # debug
                 benchmark = Benchmark(meta)
-                print("In add result 4")
                 if benchmark.name == self.benchmark_name:
                     benchmark.results.append(result)
                     branch_name = benchmark.id + "-" + str(len(benchmark.results))
                     with open(meta, 'w') as file:
                         file.write(str(benchmark))
                     print(benchmark)
-                    break
+                    break        
