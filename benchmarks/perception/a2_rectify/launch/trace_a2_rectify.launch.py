@@ -72,14 +72,17 @@ def generate_launch_description():
             ),
             ComposableNode(
                 namespace="robotperf/benchmark",
-                package="image_proc",
-                plugin="image_proc::RectifyNode",
+                package="isaac_ros_image_proc",
+                plugin="nvidia::isaac_ros::image_proc::RectifyNode",
                 name="rectify_node",
                 remappings=[
-                    ("image", "/robotperf/input"),
+                    ("image_raw", "/robotperf/input"),
                     ("camera_info", "/camera/camera_info"),
                 ],
-                extra_arguments=[{'use_intra_process_comms': True}],
+                parameters=[{
+                'keep_aspect_ratio': True,
+                }],
+                #extra_arguments=[{'use_intra_process_comms': True}],
             ),
             ComposableNode(
                 package="a1_perception_2nodes",

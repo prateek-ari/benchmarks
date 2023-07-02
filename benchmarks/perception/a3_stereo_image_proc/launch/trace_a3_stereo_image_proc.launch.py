@@ -57,7 +57,7 @@ def generate_launch_description():
             ComposableNode(
                 package="a1_perception_2nodes",
                 plugin="robotperf::perception::ImageInputComponent",
-                name="image_input_component",
+                name="image_left_input_component",
                 namespace="robotperf",
                 parameters=[
                     {"input_topic_name":"/robotperf/input/left_input/left_image_raw"}
@@ -71,7 +71,7 @@ def generate_launch_description():
             ComposableNode(
                 package="a1_perception_2nodes",
                 plugin="robotperf::perception::ImageInputComponent",
-                name="image_input_component",
+                name="image_right_input_component",
                 namespace="robotperf",
                 parameters=[
                     {"input_topic_name":"/robotperf/input/right_input/right_image_raw"}
@@ -84,8 +84,8 @@ def generate_launch_description():
             ),
             ComposableNode(
                 namespace="robotperf/benchmark",
-                package="stereo_image_proc",
-                plugin="stereo_image_proc::DisparityNode",
+                package="isaac_ros_stereo_image_proc",
+                plugin='nvidia::isaac_ros::stereo_image_proc::DisparityNode',
                 name="stereo_image_proc_disparity_node",
                 remappings=[
                     ('left/camera_info', '/robotperf/input/left_input/camera_info'),
@@ -93,7 +93,11 @@ def generate_launch_description():
                     ('right/camera_info', '/robotperf/input/right_input/camera_info'),
                     ('right/image_rect', '/robotperf/input/right_input/right_image_raw'),                    
                 ],
-                extra_arguments=[{'use_intra_process_comms': True}],
+                parameters=[{
+                'backends': 'CUDA',
+                'max_disparity': 64.0,
+                }]
+                #extra_arguments=[{'use_intra_process_comms': True}],
             ),
             ComposableNode(
                 package="a3_stereo_image_proc",

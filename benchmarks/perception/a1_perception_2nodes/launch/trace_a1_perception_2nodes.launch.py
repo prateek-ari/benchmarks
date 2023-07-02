@@ -72,20 +72,20 @@ def generate_launch_description():
             ),
             ComposableNode(
                 namespace="robotperf/benchmark",
-                package="image_proc",
-                plugin="image_proc::RectifyNode",
+                package="isaac_ros_image_proc",
+                plugin="nvidia::isaac_ros::image_proc::RectifyNode",
                 name="rectify_node",
                 remappings=[
-                    ("image", "/robotperf/input"),
+                    ("image_raw", "/robotperf/input"),
                     ("camera_info", "/camera/camera_info"),
                 ],
-                extra_arguments=[{'use_intra_process_comms': True}],
+                #extra_arguments=[{'use_intra_process_comms': True}],
             ),
 
             ComposableNode(
                 namespace="robotperf/benchmark",
-                package="image_proc",
-                plugin="image_proc::ResizeNode",
+                package="isaac_ros_image_proc",
+                plugin="nvidia::isaac_ros::image_proc::ResizeNode",
                 name="resize_node",
                 remappings=[
                     ("camera_info", "/camera/camera_info"),
@@ -98,7 +98,7 @@ def generate_launch_description():
                         "scale_width": 2.0,
                     }
                 ],
-                extra_arguments=[{'use_intra_process_comms': True}],
+                #extra_arguments=[{'use_intra_process_comms': True}],
             ),
             ComposableNode(
                 package="a1_perception_2nodes",
@@ -106,7 +106,7 @@ def generate_launch_description():
                 name="image_output_component",
                 namespace="robotperf",
                 remappings=[
-                    ("image", "/robotperf/benchmark/resize"),
+                    ("image", "/robotperf/benchmark/resize/image"),
                     ("camera_info", "/camera/camera_info"),
                 ],
                 extra_arguments=[{'use_intra_process_comms': True}],
