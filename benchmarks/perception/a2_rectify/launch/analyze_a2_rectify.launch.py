@@ -59,10 +59,6 @@ def main(argv):
         "robotperf_benchmarks:robotperf_image_input_cb_fini",
         # "ros2:callback_end",
         # "ros2:callback_start",
-        "ros2_image_pipeline:image_proc_rectify_cb_init",
-        "ros2_image_pipeline:image_proc_rectify_init",
-        "ros2_image_pipeline:image_proc_rectify_fini",
-        "ros2_image_pipeline:image_proc_rectify_cb_fini",
         # "ros2:callback_end",
         # "ros2:callback_start",
         "robotperf_benchmarks:robotperf_image_output_cb_init",
@@ -126,50 +122,6 @@ def main(argv):
         #         "marker": "diamond",
         #     }
         # )
-        ba.add_target(
-            {
-                "name": "ros2_image_pipeline:image_proc_rectify_cb_init",
-                "name_disambiguous": "ros2_image_pipeline:image_proc_rectify_cb_init",
-                "colors_fg": "yellow",
-                "colors_fg_bokeh": "salmon",
-                "layer": "userland",
-                "label_layer": 4,
-                "marker": "plus",
-            }
-        )
-        ba.add_target(
-            {
-                "name": "ros2_image_pipeline:image_proc_rectify_init",
-                "name_disambiguous": "ros2_image_pipeline:image_proc_rectify_init",
-                "colors_fg": "red",
-                "colors_fg_bokeh": "darksalmon",
-                "layer": "userland",
-                "label_layer": 4,
-                "marker": "plus",
-            }
-        )
-        ba.add_target(
-            {
-                "name": "ros2_image_pipeline:image_proc_rectify_fini",
-                "name_disambiguous": "ros2_image_pipeline:image_proc_rectify_fini",
-                "colors_fg": "red",
-                "colors_fg_bokeh": "lightcoral",
-                "layer": "userland",
-                "label_layer": 4,
-                "marker": "plus",
-            }
-        )
-        ba.add_target(
-            {
-                "name": "ros2_image_pipeline:image_proc_rectify_cb_fini",
-                "name_disambiguous": "ros2_image_pipeline:image_proc_rectify_cb_fini",
-                "colors_fg": "yellow",
-                "colors_fg_bokeh": "darkred",
-                "layer": "userland",
-                "label_layer": 4,
-                "marker": "plus",
-            }
-        )
         # ba.add_target(
         #     {
         #         "name": "ros2:callback_end",
