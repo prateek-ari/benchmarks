@@ -562,7 +562,7 @@ def generate_launch_description():
 
     trace_path_arg = DeclareLaunchArgument(
         'trace_path',
-        default_value='/home/ty-desktop-22/trace',
+        default_value='/tmp/analysis/trace',
         description='Path to trace files (e.g. /tmp/analysis/trace)'
     )
 
